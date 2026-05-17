@@ -93,10 +93,10 @@ int validarOpcion(int min, int max);
 void registrarProductos(string nombres[], float precios[], int stock[], int &cantidadActual);
 
 // Mostrar la lista de productos en formato de tabla
-void mostrarInventario();
+void mostrarInventario(string nombres[], float precios[], int stock[], int cantidadActual);
 
 // Procesar la venta, descuentor stock y acumular el dinero en caja
-void realizarVenta();
+void realizarVenta(string nombres[], float precios[], int stock[], int cantidadActual, float &totalCaja);
 
 // Funcion principal
 int main(){
@@ -109,7 +109,7 @@ int main(){
     int cantidadActual = 0; // Cuantos productos se han registrado realmente
     float totalCaja = 0.0;  // Acumulador de dinero recaudado
     int opcion;
-
+    
     do {
         mostrarMenu();
         cout << "Seleccione una opcion: ";
@@ -119,21 +119,24 @@ int main(){
             case 1:
                 cout << "\n--- REGISTRO DE PRODUCTOS ---" << endl;
                 // Llamamos a registrarProductos
+                registrarProductos(nombresProductos, preciosProductos, stockProductos, cantidadActual);
                 break;
             case 2:
                 cout << "\n--- INVENTARIO ACTUAL ---" << endl;
                 // Llamamos a mostrarInventario
+                mostrarInventario(nombresProductos, preciosProductos, stockProductos, cantidadActual);
                 break;
             case 3:
                 cout << "\n--- NUEVA VENTA ---" << endl;
                 // Llamamos a realizarVenta
+                realizarVenta(nombresProductos, preciosProductos, stockProductos, cantidadActual, totalCaja);
                 break;
             case 4:
                 cout << "\n--- CIERRE DE CAJA ---" << endl;
                 cout << "Total recaudado el dia de hoy: $" << totalCaja << endl;
                 break;
             case 5:
-                cout << "\n¡Gracias por usar el sistema! Saliendo..." << endl;
+                cout << "\nGracias por usar el sistema Saliendo..." << endl;
                 break;
         }
     } while (opcion != 5);
@@ -168,7 +171,7 @@ int validarOpcion(int min, int max) {
 // Funcion para crear una base de datos para registar los productos
 void registrarProductos(string nombres[], float precios[], int stock[], int &cantidadActual) {
     if (cantidadActual >= N) {
-        cout << "Error: La base de datos esta llena.\n";
+        cout << "Error: La base de datos esta llena." << endl;
         return; 
     }
 
@@ -191,5 +194,58 @@ void registrarProductos(string nombres[], float precios[], int stock[], int &can
     stock[cantidadActual] = validarOpcion(0, 10000); // podemos usar la funcion para validar opcion en el rango que queramos
 
     cantidadActual++;
-    cout << "¡Producto registrado exitosamente!" << endl;
+    cout << "Producto registrado exitosamente" << endl;
+}
+
+void mostrarInventario(string nombres[], float precios[], int stock[], int cantidadActual) {
+    if (cantidadActual == 0) {
+        cout << "El inventario esta vacio. Registre productos primero." << endl;
+        return;
+    }
+
+    cout << "ID     NOMBRE          PRECIO      STOCK" << endl;
+    cout << "---------------------------------------------" << endl;
+    for (int i = 0; i < cantidadActual; i++) {
+        cout << i + 1 << "      " << nombres[i];
+        cout << "            $" << precios[i];
+        cout << "       " << stock[i] << endl;
+    }
+    cout << "---------------------------------------------\n";
+}
+
+void realizarVenta(string nombres[], float precios[], int stock[], int cantidadActual, float &totalCaja) {
+    if (cantidadActual == 0) {
+        cout << "No hay productos en el sistema para vender." << endl;
+        return;
+    }
+
+    mostrarInventario(nombres, precios, stock, cantidadActual);
+    
+    cout << "\nIngrese el ID del producto que desea vender: ";
+    int id = validarOpcion(1, cantidadActual); 
+    int indice = id - 1; 
+
+    if (stock[indice] == 0) {
+        cout << "Lo sentimos, el producto '" << nombres[indice] << "' esta agotado." << endl;
+        return;
+    }
+
+    cout << "Ingrese la cantidad a vender (Stock disponible: " << stock[indice] << "): ";
+    int cantidad = validarOpcion(1, stock[indice]);
+
+    float subtotal = precios[indice] * cantidad;
+    float iva = subtotal * 0.15; 
+    float total = subtotal + iva;
+
+    stock[indice] = stock[indice] - cantidad; 
+    totalCaja = totalCaja + total;            
+
+    cout << "\n=== TICKET DE VENTA ===" << endl;
+    cout << "Producto: " << nombres[indice] << endl;
+    cout << "Cantidad: " << cantidad << endl;
+    cout << "Subtotal: $" << subtotal << endl;
+    cout << "IVA (15%): $" << iva << endl;
+    cout << "TOTAL A PAGAR: $" << total << endl;
+    cout << "=======================" << endl;
+    cout << "Venta procesada con exito" << endl;
 }
