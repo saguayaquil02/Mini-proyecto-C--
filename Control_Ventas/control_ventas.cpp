@@ -87,7 +87,7 @@ void mostrarMenu();
 int validarOpcion();
 
 // Permitir ingresar productos al sistema
-void registrarProductos(;
+void registrarProductos();
 
 // Mostrar la lista de productos en formato de tabla
 void mostrarInventario();
@@ -101,3 +101,13 @@ int main(){
 }
 
 // Funciones
+void mostrarMenu() {
+    cout << "====================================" << endl;
+    cout << "    SISTEMA DE CONTROL DE VENTAS    " << endl;
+    cout << "====================================" << endl;
+    cout << "1. Registrar Productos" << endl;
+    cout << "2. Ver Inventario" << endl;
+    cout << "3. Realizar Venta" << endl;
+    cout << "4. Ver Total en Caja" << endl;
+    cout << "5. Salir" << endl;
+}
