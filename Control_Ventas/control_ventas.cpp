@@ -79,12 +79,15 @@ Fin
 #include <string>
 using namespace std;
 
+// Constante global para el tamaño máximo de los arreglos
+const int N = 20;
+
 // Prototipo de las funiones
 // Mostrar el menu
 void mostrarMenu();
 
 // Validar que el usuario ingrese un número entero dentro de un rango específico
-int validarOpcion();
+int validarOpcion(int min, int max);
 
 // Permitir ingresar productos al sistema
 void registrarProductos();
@@ -110,4 +113,16 @@ void mostrarMenu() {
     cout << "3. Realizar Venta" << endl;
     cout << "4. Ver Total en Caja" << endl;
     cout << "5. Salir" << endl;
+}
+
+int validarOpcion(int min, int max) {
+    int entrada;
+    cin >> entrada;
+
+    // Bucle while para controlar los datos ingresados
+    while (entrada < min || entrada > max) {
+        cout << "Opcion invalida. Ingrese un numero entre " << min << " y " << max << ": ";
+        cin >> entrada; // Volver a pedir el dato
+    }
+    return entrada;
 }
