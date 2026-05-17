@@ -80,6 +80,20 @@ Fin
 using namespace std;
 
 // Prototipo de las funiones
+// Mostrar el menu
+void mostrarMenu();
+
+// Validar que el usuario ingrese un número entero dentro de un rango específico
+int validarOpcion();
+
+// Permitir ingresar productos al sistema
+void registrarProductos(;
+
+// Mostrar la lista de productos en formato de tabla
+void mostrarInventario();
+
+// Procesar la venta, descuentor stock y acumular el dinero en caja
+void realizarVenta();
 
 // Funcion principal
 int main(){
