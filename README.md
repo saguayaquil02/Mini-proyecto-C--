@@ -21,7 +21,7 @@ Para aportar un valor analítico y organizativo real a la solución, se incorpor
 
 1. **Submenú de Reportes Administrativos:** Se descongestionó el menú principal aislando las métricas del negocio en una sección exclusiva para la gerencia.
 2. **Reporte de Stock Crítico:** El sistema escanea el arreglo de existencias mediante un ciclo `for` y genera una alerta automática listando únicamente los productos que tienen **3 o menos unidades disponibles**, permitiendo una toma de decisiones oportuna para el reabastecimiento.
-3. **Métrica de Producto Estrella (El más vendido):** Se añadió un arreglo paralelo de acumuladores (`cantidadVendida`). Cada vez que se procesa una venta, se registra el volumen transaccionado y una función implementa un algoritmo de búsqueda del elemento mayor para determinar qué artículo ha tenido mayor éxito comercial en la jornada.
+3. **Métrica de Producto Estrella (El más vendido) y el producto menos vendido:** Se añadió un arreglo paralelo de acumuladores (`cantidadVendida`). Cada vez que se procesa una venta, se registra el volumen transaccionado y una función implementa un algoritmo de búsqueda del elemento mayor y tambien del menor para determinar qué artículo ha tenido mayor y el menor éxito comercial en la jornada.
 
 ## Estructura del Código
 
